@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Cranny Button",
+  "version": "0.0.1",
+  "description": "The Cranny Button Is Here.",
+  "permissions": ["tabs"],
+  "icons": {
+    "128": "images/cranny.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": ["https://*.twitter.com/*"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "images/cranny.png" ],
+      "matches": [ "https://*.twitter.com/*" ],
+      "use_dynamic_url": true
+    }
+  ]
+}
