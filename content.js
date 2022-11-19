@@ -1,42 +1,44 @@
-const customTag = `tag-${Date.now()}` // your choice of a valid & unique value
+// tag to track which tweets have already had a button added
+const customTag = `tag-${Date.now()}`;
 
 function appendCustomNode(){
-
-    // find all timeline cards, their tag name is article
-    const cards = document.getElementsByTagName('article');
-
-    // check each card
-    for (let n = 0; n < cards.length; n++) {
-
-        const card = cards[n];
-
-        // check that cards is new / has not been seen before
+    const tweets = document.getElementsByTagName('article');
+    for (let n = 0; n < tweets.length; n++) {
+        const card = tweets[n];
+        // if the tag is missing, this tweet hasn't been seen yet
         if (!card.hasAttribute(customTag)) {
-
             addButton(card);
-
-            // mark the card as "processed" by adding the custom tag
+            // mark the card as "processed" by adding the tag
             card.setAttribute(customTag, true);
         }
     }
 }
 
-function addButton(card){
-
+function createCrannyButton() {
     const crannyButton = document.createElement('div');
     crannyButton.innerHTML = `
         <div class="crannyButton" aria-label="The Cranny Button" role="button" tabindex="4">
             <img alt="Cranny Button" src="${chrome.runtime.getURL('images/cranny.png')}">
         </div>`;
-
-    const buttonRow = card.querySelector('[role=group]');
-    const shareButton = buttonRow.querySelector('[aria-label="Share Tweet"]')?.parentNode?.parentNode;
-
-    buttonRow.insertBefore(crannyButton, shareButton);
+    return crannyButton;
 }
 
-const styleTag = document.createElement('style');
+function addButton(card) {
+    const crannyButton = createCrannyButton();
+    // this can select the single-tweet view tweet but it's buggy
+    // const buttonRow = card.querySelector('[role=group]:has(div > [aria-label="Reply"])');
+    const buttonRow = card.querySelector('[role=group]');
+    if (buttonRow) {
+        const shareButton = buttonRow.querySelector('[aria-label="Share Tweet"]')?.parentNode?.parentNode;
 
+        if (shareButton) {
+            buttonRow.insertBefore(crannyButton, shareButton);
+        }
+    }
+}
+
+// add the style tag for the button
+const styleTag = document.createElement('style');
 styleTag.innerHTML = `
 .crannyButton {
     max-height: 32px !important;
@@ -52,7 +54,6 @@ styleTag.innerHTML = `
 .crannyButton:hover > img {
     transform: rotate(-360deg);
 }`;
-
 document.body.appendChild(styleTag);
 
 // Mutation observer setup
