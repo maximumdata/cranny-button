@@ -1,0 +1,30 @@
+{
+  "name": "cranny-button",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack build",
+    "watch": "webpack watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.jetbrains.space/mikedettmer/cranny-button/cranny-button.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "cheerio": "^1.0.0-rc.12",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.2",
+    "keyword-extractor": "^0.0.23",
+    "mini-css-extract-plugin": "^2.7.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  }
+}
