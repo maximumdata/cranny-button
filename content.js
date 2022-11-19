@@ -48,12 +48,29 @@ styleTag.innerHTML = `
 .crannyButton > img {
     height: 32px;
     width: 32px;
-    transition: all 1.5s ease-out;
+    transition: all 1s ease-in-out;
 }
 
 .crannyButton:hover > img {
-    transform: rotate(-360deg);
-}`;
+    /* transform: rotate(-360deg) transform: scale(1.1); */
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  25% {
+    transform: scale(.85);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+`;
 document.body.appendChild(styleTag);
 
 // Mutation observer setup
